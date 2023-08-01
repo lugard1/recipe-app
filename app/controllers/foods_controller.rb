@@ -2,7 +2,7 @@ class FoodsController < ApplicationController
     before_action :set_food, only: [:show, :edit,  :destroy]
   
     def index
-      @foods = Food.all.where(user_id: current_user.id)
+      @foods = Food.all
     end
   
     def show
@@ -13,10 +13,10 @@ class FoodsController < ApplicationController
     end
   
     def create
-      @food = current_user.foods.new(food_params)
+      @food = Food.new(food_params)
   
       if @food.save
-        redirect_to @foods_path, notice: 'Food was successfully created.'
+        redirect_to @food, notice: 'Food was successfully created.'
       else
         render :new
       end
