@@ -3,13 +3,26 @@
 <% if @foods.empty? %>
   <p>No foods added yet.</p>
 <% else %>
-  <ul>
-    <% @foods.each do |food| %>
-      <li>
-        <%= food.name %> - <%= food.quantity %> <%= food.measurement_unit %> - <%= number_to_currency(food.price) %>
-      </li>
-    <% end %>
-  </ul>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Measurement Unit</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @foods.each do |food| %>
+        <tr>
+          <td><%= food.name %></td>
+          <td><%= food.quantity %></td>
+          <td><%= food.measurement_unit %></td>
+          <td><%= number_to_currency(food.price) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 <% end %>
 
 <% if current_user && current_user.group.members.count < 3 %>
