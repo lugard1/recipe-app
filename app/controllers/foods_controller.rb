@@ -1,8 +1,8 @@
 class FoodsController < ApplicationController
-  before_action :set_food, only: %i[show edit update destroy]
+  before_action :set_food, only: [:show, :edit, :update, :destroy]
 
   def index
-    @foods = Food.all.where(user: current_user)
+    @foods = Food.all
   end
 
   def show; end
@@ -12,16 +12,22 @@ class FoodsController < ApplicationController
   end
 
   def create
-    @food = current_user.food.new(food_params)
+    @food = Food.new(food_params)
 
     if @food.save
-      redirect_to @foods_path, notice: 'Food was successfully created.'
+      redirect_to foods_url, notice: 'Food was successfully created.'
     else
       render :new
     end
   end
 
   def edit; end
+
+  def destroy
+    @food = Food.find(params[:id])
+    @food.destroy
+    redirect_to foods_url, notice: 'Food item was successfully deleted.'
+  end
 
   private
 
@@ -30,6 +36,6 @@ class FoodsController < ApplicationController
   end
 
   def food_params
-    params.require(:food).permit(:name, :measurement_unit, :price)
+    params.require(:food).permit(:name, :measurement_unit, :price, :quantity, :user_id)
   end
 end
