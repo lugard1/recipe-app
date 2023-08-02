@@ -1,10 +1,19 @@
-<h1>Foods List</h1>
+<h1>Food List</h1>
 
-<% @foods.each do |food| %>
-  <h2><%= link_to food.name, food %></h2>
-  <p>Measurement Unit: <%= food.measurement_unit %></p>
-  <p>Price: <%= number_to_currency(food.price) %></p>
-  <hr>
+<% if @foods.empty? %>
+  <p>No foods added yet.</p>
+<% else %>
+  <ul>
+    <% @foods.each do |food| %>
+      <li>
+        <%= food.name %> - <%= food.quantity %> <%= food.measurement_unit %> - <%= number_to_currency(food.price) %>
+      </li>
+    <% end %>
+  </ul>
 <% end %>
 
-<%= link_to 'New Food', new_food_path %>
+<% if current_user && current_user.group.members.count < 3 %>
+  <%= link_to 'Add New Food', new_food_path %>
+<% else %>
+  <p>You cannot add new food as your group has three or more members.</p>
+<% end %>
