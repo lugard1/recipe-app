@@ -1,0 +1,40 @@
+<h1>Food List</h1>
+
+<% if @foods.empty? %>
+  <p>No foods added yet.</p>
+<% else %>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Measurement Unit</th>
+        <th>User</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @foods.each do |food| %>
+        <tr>
+          <td><%= food.name %></td>
+          <td><%= food.quantity %></td>
+          <td><%= food.measurement_unit %></td>
+          <td><%= number_to_currency(food.price) %></td>
+          <td>
+            <% if current_user %>
+              <%= form_with(url: food_path(food), method: :delete, data: { confirm: 'Are you sure you want to delete this food item?' }) do |form| %>
+                <%= form.submit 'Delete', class: 'link-like-button' %>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+
+<% if current_user %>
+  <%= link_to 'Add New Food', new_food_path %>
+<% else %>
+  <p>You cannot add new food as your group has three or more members.</p>
+<% end %>

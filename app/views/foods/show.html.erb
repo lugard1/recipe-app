@@ -1,0 +1,7 @@
+<h1><%= @food.name %></h1>
+<p>Measurement Unit: <%= @food.measurement_unit %></p>
+<p>Price: <%= number_to_currency(@food.price) %></p>
+
+<%= link_to 'Edit', edit_food_path(@food) %>
+<%= link_to 'Delete', food_path(@food), method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= link_to 'Back to Foods', foods_path %>
