@@ -1,4 +1,4 @@
-class RecipesController < ApplicationController
+class RecipeesController < ApplicationController
   before_action :set_recipee, only: %i[show edit update destroy]
   
   def index
