@@ -1,0 +1,10 @@
+<p class="notice" style="color: green"><%= notice %></p>
+
+<%= render partial: 'recipeshow', locals: { recipe: @recipe } %>
+
+<div class="other-links">
+  <%= link_to "Edit Recipe", edit_recipee_path(@recipe) %> |
+  <%= link_to "Back to Recipes", recipees_path %>
+
+  <%= button_to "Destroy Recipe", @recipe, method: :delete %>
+</div>

@@ -1,0 +1,15 @@
+<%= link_to recipee_path(recipee) do %>
+  <div id="<%= dom_id(recipee) %>" class="recipe-card">
+    <div class="recipe-display">
+      <p>
+        <strong><%= recipee.name %></strong>
+      </p>
+    </div>
+    <div class="recipe-description">
+      <p>
+        <strong>Description:</strong>
+        <%= recipee.description %>
+      </p>
+    </div>
+  </div>
+<% end %>
