@@ -1,15 +1,15 @@
 <div id="<%= dom_id(recipe) %>" class="recipe-card">
 
-  <p class="recipe-name"><strong><%= recipe.name %></strong></p>
+  <p class="recipe-name"><strong><%= recipee.name %></strong></p>
 
   <div class="recipe-details">
     <div class="recipe-time">
-      <p>Preparation time: <%= recipe.preparation_time %> </p>
-      <p>Cooking time: <%= recipe.cooking_time %> </p>
+      <p>Preparation time: <%= recipee.preparation_time %> </p>
+      <p>Cooking time: <%= recipee.cooking_time %> </p>
       <p>Steps go here...</p>
     </div>
     <div class="public-checkbox">
-      <%= render "checkbox", recipe: recipe %>
+      <%= render "checkbox", recipe: recipee %>
     </div>
   </div>
   
