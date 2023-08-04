@@ -1,19 +1,17 @@
 class RecipeesController < ApplicationController
   before_action :set_recipee, only: %i[show edit update destroy]
-  
+
   def index
     @recipes = Recipee.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @recipe = Recipee.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @recipe = Recipee.new(recipee_params)
