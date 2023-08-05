@@ -1,4 +1,4 @@
-<div id="<%= dom_id(recipe) %>" class="recipe-card">
+<div id="<%= dom_id recipeshow %>" class="recipe-card">
 
   <p class="recipe-name"><strong><%= recipee.name %></strong></p>
 
@@ -6,7 +6,7 @@
     <div class="recipe-time">
       <p>Preparation time: <%= recipee.preparation_time %> </p>
       <p>Cooking time: <%= recipee.cooking_time %> </p>
-      <p>Steps go here...</p>
+      <p>Procedure: <%= recipee.description %> </p>
     </div>
     <div class="public-checkbox">
       <%= render "checkbox", recipe: recipee %>

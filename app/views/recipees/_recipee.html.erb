@@ -1,5 +1,5 @@
-<%= link_to recipee_path(recipee) do %>
-  <div id="<%= dom_id(recipee) %>" class="recipe-card">
+
+  <div id="<%= dom_id recipee %>" class="recipe-card">
     <div class="recipe-display">
       <p>
         <strong><%= recipee.name %></strong>
@@ -12,4 +12,3 @@
       </p>
     </div>
   </div>
-<% end %>

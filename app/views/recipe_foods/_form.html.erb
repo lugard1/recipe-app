@@ -1,4 +1,4 @@
-<%= form_with(model: @recipe_food) do |form| %>
+<%= form_with(model: [@recipe, @recipe_food], method: :post) do |form| %>
   <% if @recipe_food.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(@recipe_food.errors.count, "error") %> prohibited this recipe_food from being saved:</h2>
@@ -9,20 +9,15 @@
       </ul>
     </div>
   <% end %>
+  <%= form.hidden_field :recipee_id, value: @recipe.id %>
+   <div>
+    <%= form.label :food_name, style: "display: block" %>
+    <%= form.collection_select :food_id, @foods, :id, :name %>
+  </div>
 
   <div>
     <%= form.label :quantity, style: "display: block" %>
     <%= form.number_field :quantity %>
-  </div>
-
-  <div>
-    <%= form.label :recipe_id, style: "display: block" %>
-    <%= form.text_field :recipe_id %>
-  </div>
-
-  <div>
-    <%= form.label :food_id, style: "display: block" %>
-    <%= form.text_field :food_id %>
   </div>
 
   <div>
