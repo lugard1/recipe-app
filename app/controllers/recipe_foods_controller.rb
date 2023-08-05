@@ -8,17 +8,20 @@ class RecipeFoodsController < ApplicationController
   def show; end
 
   def new
-    @recipe_food = RecipeFood.new
+    @recipe = Recipee.find(params[:recipee_id])
+    @foods = Food.all
+    @recipe_food = @recipe.recipe_foods.new
   end
 
   def edit; end
 
   def create
+    @recipe = Recipee.find(params[:recipee_id])
     @recipe_food = RecipeFood.new(recipe_food_params)
 
     respond_to do |format|
       if @recipe_food.save
-        format.html { redirect_to recipe_food_path(@recipe_food), notice: 'Recipe food was successfully created.' }
+        format.html { redirect_to recipee_path(@recipe), notice: 'Recipe food was successfully created.' }
         format.json { render :show, status: :created, location: @recipe_food }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,10 +43,13 @@ class RecipeFoodsController < ApplicationController
   end
 
   def destroy
-    @recipe_food.destroy
+    @recipe_food = RecipeFood.find(params[:id])
+    return unless @recipe_food.destroy
 
     respond_to do |format|
-      format.html { redirect_to recipe_foods_url, notice: 'Recipe food was successfully destroyed.' }
+      format.html do
+        redirect_to recipee_path(@recipe_food.recipee), notice: 'Recipe food was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end
@@ -55,6 +61,6 @@ class RecipeFoodsController < ApplicationController
   end
 
   def recipe_food_params
-    params.require(:recipe_food).permit(:quantity, :recipe_id, :food_id)
+    params.require(:recipe_food).permit(:quantity, :recipee_id, :food_id)
   end
 end

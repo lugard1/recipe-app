@@ -6,7 +6,7 @@
     <% @recipes.each do |recipee| %>
       <% if recipee.user_id == current_user.id %>
         <%= link_to recipee_path(recipee) do %>
-          <%= render partial: 'recipe', locals: { recipe: recipee } %>
+          <%= render recipee %>
         <% end %>
         <strong><%= link_to "REMOVE", recipee, method: :delete, class: "remove-btn" %></strong>
       <% end %>

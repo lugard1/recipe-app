@@ -1,9 +1,54 @@
 <p class="notice" style="color: green"><%= notice %></p>
 
-<%= render partial: 'recipeshow', locals: { recipe: @recipe } %>
+<%# <%= render recipeshow %> %>
+
+<p class="recipe-name"><strong><%= @recipe.name %></strong></p>
+
+  <div class="recipe-details">
+    <div class="recipe-time">
+      <p>Preparation time: <%= @recipe.preparation_time %> </p>
+      <p>Cooking time: <%= @recipe.cooking_time %> </p>
+      <p>Procedure: <%= @recipe.description %> </p>
+    </div>
+    <div class="public-checkbox">
+      <%= render "checkbox", recipe: @recipe %>
+    </div>
+  </div>
+  
+  <div class="recipe-buttons">
+    <button>Generate Shopping List</button>
+    <% if @recipe.user == current_user %>
+    <%= link_to 'Add Ingredient', new_recipee_recipe_food_path(@recipe) %>
+    <%end%>
+  </div>
+
+  <table class="food-table">
+    <thead>
+      <tr>
+        <th>Food</th>
+        <th>Quantity</th>
+        <th>Value</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @recipe.recipe_foods.includes(:food).each do |recipe_food| %>
+        <% food = recipe_food.food %>
+        <tr>
+          <td><%= food.name %></td>
+          <td><%= recipe_food.quantity %></td>
+          <td>$<%= food.price * recipe_food.quantity %></td>
+          <td class="action">
+            <%= button_to 'Modify', '#' %>
+            <%= button_to 'Delete', recipee_recipe_food_path(@recipe.id, recipe_food.id), method: :delete, data: { turbo_confirm: "Are you sure?" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
 <div class="other-links">
-  <%= link_to "Edit Recipe", edit_recipee_path(@recipe) %> |
+  <%# <%= link_to "Edit Recipe", edit_recipe_path(@recipe) %> | %>
   <%= link_to "Back to Recipes", recipees_path %>
 
   <%= button_to "Destroy Recipe", @recipe, method: :delete %>
